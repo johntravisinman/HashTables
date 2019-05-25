@@ -47,7 +47,7 @@ namespace HashingExamples
             this.size = size;
         }
         // Populate the hash table with the given values
-        public void populate(int[] values, int numberOfValues)
+        public void Populate(int[] values, int numberOfValues)
         {
             int key;
             for(int i = 0; i < numberOfValues; i++)
@@ -78,7 +78,7 @@ namespace HashingExamples
         }
 
         // Print the hash table
-        public void print()
+        public void Print()
         {
             Console.WriteLine("Key\tValue");
             for(int i = 0; i < size; i++)
@@ -107,10 +107,21 @@ namespace HashingExamples
     {
         static void Main(string[] args)
         {
+            // Array of random ints
+            int[] randArray = GetArrayOfRandomInts(100, 100000);
+
+        }
+
+        static int[] GetArrayOfRandomInts(int size, int range)
+        {
             // Pseudo-random number generator
             Random rand = new Random();
-            HashEntry entry = new HashEntry(rand.Next(10000));
-            Console.WriteLine(entry.Data);
+            int[] arr = new int[size];
+            for(int i = 0; i < size; i++)
+            {
+                arr[i] = rand.Next(range);
+            }
+            return arr;
         }
     }
 }
