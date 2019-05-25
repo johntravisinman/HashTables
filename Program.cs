@@ -29,13 +29,13 @@ namespace HashingExamples
         }
     }
     // Hash table using chaining
-    public class HashChain
+    public class ChainingHashTable
     {
         // The hash table (just an array of hash entries)
         private HashEntry[] hashTable;
         private int size;
         // Constructor
-        public HashChain(int size)
+        public ChainingHashTable(int size)
         {
             // create an empty hashTable
             hashTable = new HashEntry[size];
@@ -47,10 +47,10 @@ namespace HashingExamples
             this.size = size;
         }
         // Populate the hash table with the given values
-        public void Populate(int[] values, int numberOfValues)
+        public void Populate(int[] values)
         {
             int key;
-            for(int i = 0; i < numberOfValues; i++)
+            for(int i = 0; i < values.Length; i++)
             {
                 // Simple hash on the value to get the key
                 // key = value % tableSize
@@ -80,7 +80,7 @@ namespace HashingExamples
         // Print the hash table
         public void Print()
         {
-            Console.WriteLine("Key\tValue");
+            Console.WriteLine("{0,3}:{1,6}","Key","Value");
             for(int i = 0; i < size; i++)
             {
                 // Empty
@@ -93,10 +93,11 @@ namespace HashingExamples
                 {
                     // Get the first chained entry
                     HashEntry nextEntry = hashTable[i].next;
-                    Console.Write(i + "\t" + hashTable[i].Data);
+                    Console.Write("{0,3}:{1, 6} ", i, hashTable[i].Data);
                     while(nextEntry != null)
                     {
-                        Console.Write(" -> " + nextEntry.Data);
+                        Console.Write("-> {0, 6} ", nextEntry.Data);
+                        nextEntry = nextEntry.next;
                     }
                 }
                 Console.WriteLine("");
@@ -107,9 +108,15 @@ namespace HashingExamples
     {
         static void Main(string[] args)
         {
-            // Array of random ints
-            int[] randArray = GetArrayOfRandomInts(100, 100000);
-
+            // Sizes for both the sample data and the table itself. (eventually user input)
+            const int tableSize = 100;
+            const int dataSize = 1000;
+            // Array of random ints. This will be sample data for all hash tables
+            int[] arrayOfRandomInts = GetArrayOfRandomInts(dataSize, 100000);
+            // Create an empty chaining hash table
+            ChainingHashTable chainingHashTable = new ChainingHashTable(tableSize);
+            chainingHashTable.Populate(arrayOfRandomInts);
+            chainingHashTable.Print();
         }
 
         static int[] GetArrayOfRandomInts(int size, int range)
