@@ -2,7 +2,7 @@
 
 namespace HashingExamples
 {
-    class Program
+    class HashTables
     {
         static void Main(string[] args)
         {
